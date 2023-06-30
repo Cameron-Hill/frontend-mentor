@@ -1,11 +1,10 @@
-import "./globals.css";
 import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
-  title: "Frontend Mentor Chanllenges",
-  description: "A place for me to practice my frontend skills",
+  title: "Age Calculator App",
+  description: "Age Calculator App from Frontend Mentor",
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
