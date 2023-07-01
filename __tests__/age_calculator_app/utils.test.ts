@@ -14,6 +14,7 @@ describe("Test calculateTimeDiff", () => {
     [{ year: 2019, month: 2, day: 2 }, "2020-03-01", { years: "1", months: "0", days: "28" }],
     [{ year: 2019, month: 2, day: 2 }, "2019-03-01", { years: "0", months: "0", days: "27" }],
     [{ year: 1970, month: 3, day: 31 }, "2020-06-29", { years: "50", months: "2", days: "29" }],
+    [{ year: 1996, month: 7, day: 8 }, "2023-07-01", { years: "26", months: "11", days: "23" }],
   ])("calculateTimeDiff(%s, %s) should return %s", (date1, date2, expected) => {
     const dt1 = new Date(date1.year, date1.month - 1, date1.day);
     const dt2 = new Date(date2);

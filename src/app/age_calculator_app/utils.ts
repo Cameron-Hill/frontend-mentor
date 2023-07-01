@@ -25,7 +25,7 @@ export const getTimeDiff = (pastDate: Date, futureDate: Date): ResultState => {
     days += daysInLastMonth;
   }
 
-  if (monthDiff < 0) {
+  if (months < 0) {
     years -= 1;
     months += 12;
   }
