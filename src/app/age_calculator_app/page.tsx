@@ -1,6 +1,7 @@
 "use client";
 import Head from "next/head";
 import { useState } from "react";
+import Image from "next/image";
 
 type Validator = (value: number | undefined) => [boolean, string];
 
@@ -94,16 +95,12 @@ const Input = ({ name, label, placeholder, maxLength = 2, value, setValue, valid
 const FormButton = () => {
   return (
     <div className="flex items-center">
-      <div className="h-px my-8 bg-gray-200 border-0 w-80" />
+      <div className="h-px md:my-8 my-12 bg-gray-200 border-0 w-72 md:w-80 relative" />
       <button
-        className="bg-primary text-white px-4 py-2 rounded-full w-14 h-14 flex items-center justify-center hover:bg-black "
+        className="absolute bg-primary text-white px-4 py-2 rounded-full w-14 h-14  hover:bg-black  left-[calc(50%-1.75rem)] md:left-0 md:relative"
         type="submit"
       >
-        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="40" viewBox="0 0 46 44">
-          <g fill="none" stroke="#FFF" strokeWidth="2">
-            <path d="M1 22.019C8.333 21.686 23 25.616 23 44M23 44V0M45 22.019C37.667 21.686 23 25.616 23 44" />
-          </g>
-        </svg>
+        <Image src="/images/icon-arrow.svg" alt="arrow" width={25} height={25} />
       </button>
     </div>
   );
@@ -145,15 +142,19 @@ const Result = ({ value, text }: { value: string; text: string }) => {
   );
 };
 
-export const validateDate = (state: FormState): boolean => {
+export const validateDate = (state: FormState): [boolean, string] => {
+  const deafultValidationError: [boolean, string] = [false, "Must be a valid date"];
   const date = new Date(state.year!, state.month! - 1, state.day!);
   if (date.toString() === "Invalid Date") {
-    return false;
+    return deafultValidationError;
+  }
+  if (date.getTime() > new Date().getTime()) {
+    return [false, "Must be in the past"];
   }
   if (date.getFullYear() != state.year || date.getMonth() != state.month! - 1 || date.getDate() != state.day) {
-    return false;
+    return deafultValidationError;
   }
-  return true;
+  return [true, ""];
 };
 
 export const validateNumber = (value: number | undefined, msg: string, min = 0, max = 100): [boolean, string] => {
@@ -167,11 +168,11 @@ export default function AgeCalculatorApp() {
   const [formState, setFormState] = useState<{ day?: number; month?: number; year?: number }>({});
   const [resultState, setResultState] = useState<{ years: string; months: string; days: string }>(defaultResultState);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const isValidDate = validateDate(formState);
+  const [isValidDate, dateValidationErrorMessage] = validateDate(formState);
 
   const validators: { day: Validator[]; month: Validator[]; year: Validator[] } = {
     day: [
-      (value: number | undefined) => [isValidDate || !isSubmitting, "Must be a valid date"],
+      (value: number | undefined) => [isValidDate || !isSubmitting, dateValidationErrorMessage],
       (value: number | undefined) => validateNumber(value, "Must be a valid day", 1, 31),
     ],
     month: [
@@ -194,7 +195,7 @@ export default function AgeCalculatorApp() {
       </Head>
 
       <main className="font-poppins flex flex-col min-h-screen items-center justify-center bg-[#f0f0f0]">
-        <div className="bg-white rounded-l-2xl rounded-t-2xl rounded-br-[100px] p-8">
+        <div className="bg-white rounded-l-2xl rounded-t-2xl rounded-br-[100px] md:p-8 px-4 py-10">
           <form
             onSubmit={(e) => {
               e.preventDefault();
