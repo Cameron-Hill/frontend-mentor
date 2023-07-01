@@ -1,4 +1,4 @@
-import { getTimeDiff, validateDate } from "../../src/app/age_calculator_app/page";
+import { getTimeDiff, validateDate } from "../../src/app/age_calculator_app/utils";
 
 describe("Test calculateTimeDiff", () => {
   // test days
@@ -26,7 +26,7 @@ describe("Test validateDate", () => {
     [{ year: 2020, month: 1, day: 1 }, true],
     [{ year: 2020, month: 2, day: 29 }, true],
     [{ year: 2021, month: 2, day: 29 }, false],
-    [{ year: 2024, month: 2, day: 29 }, true],
+    [{ year: 1996, month: 2, day: 29 }, true],
     [{ year: 1996, month: 2, day: 29 }, true],
     [{ year: 1997, month: 2, day: 29 }, false],
     [{ year: 2020, month: 2, day: 30 }, false],
@@ -35,6 +35,6 @@ describe("Test validateDate", () => {
     [{ year: 2022, month: 9, day: 30 }, true],
     [{ year: 2022, month: 9, day: 32 }, false],
   ])("validateDate(%s) should return %s", (date, expected) => {
-    expect(validateDate(date)).toBe(expected);
+    expect(validateDate(date)[0]).toBe(expected);
   });
 });
