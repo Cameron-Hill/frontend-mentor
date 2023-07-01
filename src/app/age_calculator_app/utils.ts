@@ -1,3 +1,15 @@
+export type ResultState = {
+  years: string;
+  months: string;
+  days: string;
+};
+
+export type FormState = {
+  day?: number;
+  month?: number;
+  year?: number;
+};
+
 export const getTimeDiff = (pastDate: Date, futureDate: Date): ResultState => {
   const yearDiff = futureDate.getFullYear() - pastDate.getFullYear();
   const monthDiff = futureDate.getMonth() - pastDate.getMonth();

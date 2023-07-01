@@ -12,17 +12,6 @@ const defaultResultState = {
   days: "--",
 };
 
-type ResultState = {
-  years: string;
-  months: string;
-  days: string;
-};
-
-type FormState = {
-  day?: number;
-  month?: number;
-  year?: number;
-};
 
 type InputProps = {
   name: string;
