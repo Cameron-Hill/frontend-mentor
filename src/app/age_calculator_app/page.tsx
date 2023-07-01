@@ -1,8 +1,5 @@
 "use client";
 import Head from "next/head";
-import { type } from "os";
-import { parse } from "path";
-import { Fragment } from "react";
 import { useState } from "react";
 
 type Validator = (value: number | undefined) => [boolean, string];
@@ -112,26 +109,31 @@ const FormButton = () => {
   );
 };
 
-const handleFormSubmit = (
-  e: React.FormEvent<HTMLFormElement>,
-  formState: FormState,
-  setResultState: (state: ResultState) => void
-) => {
-  e.preventDefault();
+export const getTimeDiff = (pastDate: Date, futureDate: Date): ResultState => {
+  const yearDiff = futureDate.getFullYear() - pastDate.getFullYear();
+  const monthDiff = futureDate.getMonth() - pastDate.getMonth();
+  const dayDiff = futureDate.getDate() - pastDate.getDate();
 
-  const date = new Date(formState.year!, formState.month!, formState.day!);
-  const currentDate = new Date();
-  const diff = currentDate.getTime() - date.getTime();
-  const diffDate = new Date(diff);
-  const years = diffDate.getUTCFullYear() - 1970;
-  const months = diffDate.getUTCMonth();
-  const days = diffDate.getUTCDate() - 1;
+  let years = yearDiff;
+  let months = monthDiff;
+  let days = dayDiff;
 
-  setResultState({
+  if (dayDiff < 0) {
+    const daysInLastMonth = new Date(futureDate.getFullYear(), futureDate.getMonth(), 0).getDate();
+    months -= 1;
+    days += daysInLastMonth;
+  }
+
+  if (monthDiff < 0) {
+    years -= 1;
+    months += 12;
+  }
+
+  return {
     years: years.toString(),
     months: months.toString(),
     days: days.toString(),
-  });
+  };
 };
 
 const Result = ({ value, text }: { value: string; text: string }) => {
@@ -143,7 +145,7 @@ const Result = ({ value, text }: { value: string; text: string }) => {
   );
 };
 
-const validateDate = (state: FormState): boolean => {
+export const validateDate = (state: FormState): boolean => {
   const date = new Date(state.year!, state.month! - 1, state.day!);
   if (date.toString() === "Invalid Date") {
     return false;
@@ -154,7 +156,7 @@ const validateDate = (state: FormState): boolean => {
   return true;
 };
 
-const validateNumber = (value: number | undefined, msg: string, min = 0, max = 100): [boolean, string] => {
+export const validateNumber = (value: number | undefined, msg: string, min = 0, max = 100): [boolean, string] => {
   if (value === undefined) {
     return [true, msg];
   }
@@ -166,6 +168,22 @@ export default function AgeCalculatorApp() {
   const [resultState, setResultState] = useState<{ years: string; months: string; days: string }>(defaultResultState);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const isValidDate = validateDate(formState);
+
+  const validators: { day: Validator[]; month: Validator[]; year: Validator[] } = {
+    day: [
+      (value: number | undefined) => [isValidDate || !isSubmitting, "Must be a valid date"],
+      (value: number | undefined) => validateNumber(value, "Must be a valid day", 1, 31),
+    ],
+    month: [
+      (value: number | undefined) => [isValidDate || !isSubmitting, ""],
+      (value: number | undefined) => validateNumber(value, "Must be a valid month", 1, 12),
+    ],
+    year: [
+      (value: number | undefined) => [isValidDate || !isSubmitting, ""],
+      (value: number | undefined) => validateNumber(value, "Must be in the past", 0, new Date().getFullYear()),
+      (value: number | undefined) => validateNumber(value, "Must be greater than 100", 100, new Date().getFullYear()),
+    ],
+  };
 
   return (
     <>
@@ -181,8 +199,17 @@ export default function AgeCalculatorApp() {
             onSubmit={(e) => {
               e.preventDefault();
               setIsSubmitting(true);
-              if (isValidDate) {
-                handleFormSubmit(e, formState, setResultState);
+
+              const validatorGroups = Object.keys(validators) as Array<keyof typeof validators>;
+              const isValid = validatorGroups.every((key) =>
+                validators[key].every((validator) => validator(formState[key])[0])
+              );
+
+              if (isValid && isValidDate) {
+                // setIsSubmitting does not update state immediately, so we need to check isValidDate again
+                const date = new Date(formState.year!, formState.month! - 1, formState.day!);
+                const result = getTimeDiff(date, new Date());
+                setResultState(result);
                 setIsSubmitting(false);
               } else {
                 setResultState(defaultResultState);
@@ -196,10 +223,7 @@ export default function AgeCalculatorApp() {
                 placeholder="DD"
                 setValue={(value) => setFormState({ ...formState, day: value })}
                 value={formState.day}
-                validators={[
-                  (value) => [isValidDate || !isSubmitting, "Must be a valid date"],
-                  (value) => validateNumber(value, "Must be a valid day", 1, 31),
-                ]}
+                validators={validators.day}
                 onFocus={() => setIsSubmitting(false)}
               />
               <Input
@@ -208,10 +232,7 @@ export default function AgeCalculatorApp() {
                 placeholder="MM"
                 setValue={(value) => setFormState({ ...formState, month: value })}
                 value={formState.month}
-                validators={[
-                  (value) => [isValidDate || !isSubmitting, ""],
-                  (value) => validateNumber(value, "Must be a valid month", 1, 12),
-                ]}
+                validators={validators.month}
                 onFocus={() => setIsSubmitting(false)}
               />
               <Input
@@ -221,15 +242,13 @@ export default function AgeCalculatorApp() {
                 maxLength={4}
                 setValue={(value) => setFormState({ ...formState, year: value })}
                 value={formState.year}
-                validators={[
-                  (value) => [isValidDate || !isSubmitting, ""],
-                  (value) => validateNumber(value, "Must be in the past", 100, new Date().getFullYear()),
-                ]}
-                onFocus={() => setIsSubmitting(false)}
+                validators={validators.year}
               />
             </div>
+
             <FormButton />
           </form>
+
           <section>
             <Result value={resultState.years} text="years" />
             <Result value={resultState.months} text="months" />
