@@ -101,10 +101,10 @@ const Result = ({ value, text }: { value: string; text: string }) => {
   return (
     <div className="flex text-5xl font-poppins-extra-bold-italic">
       <div
-        className={`text-primary ${parseInt(value) ? `counter-element hover:[--num:${value}]` : ""}`}
+        className={`text-primary ${parseInt(value) !== null ? `counter-element hover:[--num:${value}]` : ""}`}
         style={styleValue}
       >
-        {parseInt(value) ? "" : "--"}
+        {parseInt(value) !== null ? "" : "--"}
       </div>
       <p className="px-1">{text}</p>
     </div>
