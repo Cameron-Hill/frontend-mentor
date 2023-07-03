@@ -3,6 +3,7 @@ import Head from "next/head";
 import { useState } from "react";
 import Image from "next/image";
 import { getTimeDiff, validateDate, validateNumber } from "./utils";
+import BackButton from "../components/back-button";
 
 type Validator = (value: number | undefined) => [boolean, string];
 
@@ -139,7 +140,7 @@ export default function AgeCalculatorApp() {
         <meta name="description" content="Age Calculator App" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
+      <BackButton />
       <main className="font-poppins flex flex-col min-h-screen items-center justify-center bg-[#f0f0f0]">
         <div className="bg-white rounded-l-2xl rounded-t-2xl rounded-br-[100px] md:p-8 px-4 py-10">
           <form
