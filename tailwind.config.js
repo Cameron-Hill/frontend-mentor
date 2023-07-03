@@ -14,6 +14,7 @@ module.exports = {
       },
       colors: {
         primary: "#864cff",
+        "news-bg": "#fefdf9",
       },
       fontFamily: {
         poppins: ["poppins"],
