@@ -16,6 +16,23 @@
   }
 } */
 
+@property --num {
+  syntax: "<integer>";
+  initial-value: 0;
+  inherits: false;
+}
+
+.counter-element {
+  transition: --num 2s;
+  counter-set: num var(--num);
+  font: 800 40px system-ui;
+}
+
+.counter-element::after {
+  content: counter(num);
+}
+
+
 @font-face {
   font-family: 'poppins';
   src: url('../../public/fonts/Poppins-Regular.ttf');

@@ -96,9 +96,15 @@ const FormButton = () => {
 };
 
 const Result = ({ value, text }: { value: string; text: string }) => {
+  const styleValue = (parseInt(value) ? { "--num": value } : {}) as React.CSSProperties;
   return (
     <div className="flex text-5xl font-poppins-extra-bold-italic">
-      <p className="text-primary">{value}</p>
+      <div
+        className={`text-primary ${parseInt(value) ? `counter-element hover:[--num:${value}]` : ""}`}
+        style={styleValue}
+      >
+        {parseInt(value) ? "" : "--"}
+      </div>
       <p className="px-1">{text}</p>
     </div>
   );

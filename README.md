@@ -1,3 +1,9 @@
+# Frontend Mentor Challenges
+
+A place for me to upload frontend mentor challenges.
+<br>
+Checkout frontend mentor here [Frontend Mentor](https://www.frontendmentor.io/)
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
