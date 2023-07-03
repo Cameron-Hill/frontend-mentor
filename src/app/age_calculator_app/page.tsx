@@ -12,7 +12,6 @@ const defaultResultState = {
   days: "--",
 };
 
-
 type InputProps = {
   name: string;
   label: string;
@@ -90,7 +89,7 @@ const FormButton = () => {
         className="absolute bg-primary text-white px-4 py-2 rounded-full w-14 h-14  hover:bg-black  left-[calc(50%-1.75rem)] md:left-0 md:relative"
         type="submit"
       >
-        <Image src="/images/icon-arrow.svg" alt="arrow" width={25} height={25} />
+        <Image src="/images/age_calculator_app/icon-arrow.svg" alt="arrow" width={25} height={25} />
       </button>
     </div>
   );
