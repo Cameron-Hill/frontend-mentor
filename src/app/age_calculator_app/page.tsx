@@ -97,7 +97,7 @@ const FormButton = () => {
 };
 
 const Result = ({ value, text }: { value: string; text: string }) => {
-  const styleValue = (parseInt(value) ? { "--num": value } : {}) as React.CSSProperties;
+  const styleValue = (parseInt(value) !== null ? { "--num": value } : {}) as React.CSSProperties;
   return (
     <div className="flex text-5xl font-poppins-extra-bold-italic">
       <div
