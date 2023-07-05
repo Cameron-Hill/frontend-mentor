@@ -23,7 +23,7 @@ const MobileMenu = ({
 }) => {
   if (open) {
     return (
-      <div className="absolute top-0 right-0 w-2/3 h-screen bg-news-bg ">
+      <div className="absolute top-0 right-0 w-2/3 h-screen bg-news-bg">
         <div className="float-right my-5 px-3">
           <Image
             src="/images/news-homepage/icon-menu-close.svg"
