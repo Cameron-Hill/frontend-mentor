@@ -15,6 +15,9 @@ module.exports = {
       colors: {
         primary: "#864cff",
         "news-bg": "#fefdf9",
+        "news-highlight": "#f15d51",
+        "news-primary": "#f15d51",
+        "news-secondary": "#00001a",
       },
       fontFamily: {
         poppins: ["poppins"],
@@ -23,6 +26,9 @@ module.exports = {
         "poppins-extra-bold": ["poppinsExtraBold"],
         "poppins-bold-italic": ["poppinsBoldItalic"],
         "poppins-extra-bold-italic": ["poppinsExtraBoldItalic"],
+        inter: ["inter"],
+        "inter-bold": ["interBold"],
+        "inter-extra-bold": ["interExtraBold"],
       },
     },
   },

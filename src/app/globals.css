@@ -59,6 +59,22 @@
   font-family: 'poppinsExtraBoldItalic';
   src: url('../../public/fonts/Poppins-ExtraBoldItalic.ttf');
 }
+
+@font-face {
+  font-family: 'inter';
+  src: url('../../public/fonts/static/Inter-Regular.ttf');
+}
+
+@font-face {
+  font-family: 'interBold';
+  src: url('../../public/fonts/static/Inter-Bold.ttf');
+}
+
+@font-face {
+  font-family: 'interExtraBold';
+  src: url('../../public/fonts/static/Inter-ExtraBold.ttf');
+}
+
 body {
   margin:0;
 }
