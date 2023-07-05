@@ -28,13 +28,31 @@ export default function Home() {
           <p className="px-2">Challenges:</p>
         </h1>
       </div>
-      <div className="flex my-10 flex-0  gap-5 flex-wrap w-full justify-center align-middle text-slate-600">
+      <div className="flex my-10 flex-0  gap-10 flex-wrap w-full justify-center align-middle text-slate-600">
         <ChallengeCard
           href="/age_calculator_app"
           title="Age Calculator App"
           imageSrc="/images/home/age_calculator_app_preview.png"
-        />
-        <ChallengeCard href="/news-homepage" title="News Homepage" />
+        >
+          <p>A simple age calculator app that calculates your age in years, months and days.</p>
+          <br />
+          <Link
+            className="border-b border-slate-200 text-[13px] text-sky-700 hover:text-sky-300 transition-colors hover:border-sky-300"
+            href="https://www.frontendmentor.io/solutions/age-calculator-app-with-react-and-tailwind-G4UYmqL1nY"
+          >
+            Challenge Page
+          </Link>
+        </ChallengeCard>
+        <ChallengeCard href="/news-homepage" title="News Homepage" imageSrc="/images/home/news-homepage_preview.png">
+          <p>A news homepage that displays the latest news from various sources.</p>
+          <br />
+          <Link
+            className="border-b border-slate-200 text-[13px] text-sky-700 hover:text-sky-300 transition-colors hover:border-sky-300"
+            href="https://www.frontendmentor.io/challenges/news-homepage-H6SWTa1MFl/hub"
+          >
+            Challenge Page
+          </Link>
+        </ChallengeCard>
       </div>
     </main>
   );

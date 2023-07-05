@@ -17,20 +17,22 @@ export default function ChallengeCard({ title, href, children, className = "", i
   return (
     <Link href={href}>
       <div
-        className={`flex flex-col items-center justify-center w-72 rounded-3xl shadow-md hover:shadow-xl bg-white hover:bg-slate-100 transition-all duration-200 ${className}`}
+        className={`group flex flex-col w-80 rounded-3xl shadow-md hover:shadow-xl bg-white hover:bg-slate-50 transition-all duration-200 ${className}`}
       >
         <div className="h-48 w-full ">
           <Image
             src={src}
-            width={100}
-            height={100}
+            width={500}
+            height={500}
             alt={`preview image for ${title}`}
             className="w-full h-full object-cover"
           />
         </div>
-
-        <h1 className="font-poppins-bold text-2xl my-3">{title}</h1>
-        {children}
+        <div className="px-5 ">
+          <h1 className="font-poppins-bold text-2xl my-6 group-hover:text-slate-700">{title}</h1>
+          {children && <hr></hr>}
+          {children && <div className=" text-slate-600 font-poppins my-4">{children}</div>}
+        </div>
       </div>
     </Link>
   );

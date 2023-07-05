@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "next/link";
 import { Children, useState } from "react";
 
 const BurgerMenu = () => {
@@ -49,13 +50,15 @@ export default function Header({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   return (
     <header className="flex items-center justify-between p-4 text-gray-500 ">
-      <Image
-        src="/images/news-homepage/logo.svg"
-        alt="Logo"
-        width={10}
-        height={10}
-        className="w-10 md:w-16 mx-1 aspect-auto"
-      />
+      <Link href="/" className="cursor-pointer">
+        <Image
+          src="/images/news-homepage/logo.svg"
+          alt="Logo"
+          width={10}
+          height={10}
+          className="w-10 md:w-16 mx-1 aspect-auto"
+        />
+      </Link>
       <div className="hidden font-inter md:flex md:gap-10">{children}</div>
       <div className="md:hidden">
         <Image
