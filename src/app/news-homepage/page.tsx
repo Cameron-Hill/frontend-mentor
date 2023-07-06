@@ -44,14 +44,14 @@ export default function NewsHomepage() {
               </a>
             </span>
           </Header>
-          <div className="grid p-4 md:grid-cols-3 md:grid-rows-3 md:gap-5">
+          <div className="grid p-4 md:grid-cols-3 md:grid-rows-3 md:gap-5 w-full">
             <section className="md:row-start-1 md:col-start-1 md:row-end-3 md:col-end-3">
               <Image
                 src="/images/news-homepage/image-web-3-mobile.jpg"
                 alt="Hero"
                 width={500}
                 height={500}
-                className="max-w-7xl md:hidden"
+                className="max-w-7xl md:hidden w-full"
               />
               <Image
                 src="/images/news-homepage/image-web-3-desktop.jpg"
